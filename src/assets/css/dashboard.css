@@ -1,0 +1,61 @@
+.content{
+    margin-left: 300px;
+    margin-top: 90px;
+    padding: 50px 20px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 992px) {
+    .content{
+        margin-left: 0px;
+        border-radius: 0px;
+        padding: 20px;
+    }
+}
+
+h1{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.dt-buttons.btn-group{
+    margin: 10px 0px;
+}
+
+.table thead tr th{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.table tbody tr td{
+    font-family: 'Lato', sans-serif;
+}
+
+.table-responsive{
+    overflow: scroll !important;
+}
+
+.table i{
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.fa-gear:hover{
+    color: #8fb3ff;
+}
+
+.fa-trash:hover{
+    color: red;
+}
+
+.modal-footer .btn.btn-primary{
+    background-color: #8fb3ff;
+    border: 2px solid transparent;
+    opacity: 100%;
+    transition: background-color 0.4s ease-in;
+}
+
+.modal-footer .btn.btn-primary:hover{
+    background-color: #d41d6d;
+}
+
+

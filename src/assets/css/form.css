@@ -1,0 +1,92 @@
+#boxContainer {
+    background-image: url(../img/pexels-huỳnh-đạt-2177482.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    object-fit: cover;
+}
+
+@media (max-width:1200px) {
+    #boxContainer {
+        background-size: 200%;
+    }
+}
+
+@media (max-width:768px) {
+    #boxContainer {
+        background-size: 300%;
+    }
+}
+
+@media (max-width:568px) {
+    #boxContainer {
+        background-size: 400%;
+    }
+}
+
+@media (max-width:468px) {
+    #boxContainer {
+        background-size: 500%;
+    }
+}
+
+/* <!--===============================================================================================--> */
+#box {
+    width: 550px;
+    min-width: 550px;
+    height: auto;
+    background: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.24);
+}
+
+@media (max-width: 768px) {
+    #box {
+        width: 500px;
+        min-width: 100%;
+    }
+
+}
+
+#box label {
+    font-size: 20px;
+    font-family: 'Lato', sans-serif;
+}
+
+#box input{
+    border: 0px solid transparent;
+    font-family: 'Lato', sans-serif;
+}
+
+#box button {
+    background-color: #007bff;
+    border: 0px solid transparent;
+    color: white;
+    transition: background-color 0.1s ease-in;
+    width: 100px;
+    font-family: 'Lato', sans-serif;
+}
+
+#box button:hover {
+    background-color: #0051a8;
+}
+
+#box a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: 'Lato', sans-serif;
+}
+
+#box a:hover {
+    text-decoration: underline;
+    color: #0051a8;
+}
+
+/* <!--===============================================================================================--> */

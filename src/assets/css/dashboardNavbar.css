@@ -1,0 +1,24 @@
+.navbar{
+    width: 100%;
+    padding: 20px 20px;
+    background-color: white;
+    height: 90px;
+    border-bottom: 4px dotted rgba(245, 245, 245, 1)
+}
+
+.navbar i{
+    font-size: 22px;
+}
+
+#imageBox{
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+#imageBox img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}

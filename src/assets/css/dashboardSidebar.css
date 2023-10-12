@@ -1,0 +1,75 @@
+#dashboardSidebar {
+    width: 300px;
+    padding: 20px 0px 20px 20px;
+    height: 100vh !important;
+    text-wrap: nowrap;
+    z-index: 1049 !important;
+    background-color: white;
+    border-right: 4px dotted rgba(245, 245, 245, 1);
+    font-family: 'Montserrat', sans-serif;
+}
+
+#dashboardSidebar i {
+    font-size: 30px;
+}
+
+@media (max-width: 576px) {
+    #dashboardSidebar {
+        width: 100%;
+        min-width: 100%;
+        border: 0px solid transparent;
+    }
+
+    #dashboardSidebar h1 {
+        font-size: 40px;
+    }
+}
+
+#dashboardSidebar h1 {
+    color: #8fb3ff;
+    border-bottom: 3px double #8fb3ff;
+}
+
+#dashboardSidebar h1:hover{
+    cursor: pointer;
+}
+
+#dashboardSidebar a {
+    font-size: 20px;
+    padding: 15px;
+    overflow: hidden;
+}
+
+#dashboardSidebar span {
+    font-size: 25px;
+    color: #8fb3ff;
+    position: relative;
+    
+}
+
+#dashboardSidebar span::before{
+    content: '';
+    position: absolute;
+    border-bottom: 3px solid #8fb3ff;
+    transition: border-bottom 0.4s ease-in;
+    margin-top: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+#dashboardSidebar a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    gap: 0px 5px;
+}
+
+#dashboardSidebar a:hover {
+    background-color: rgba(245, 245, 245, 1);
+    border-radius: 25px 0 0 25px;
+}
+
+#dashboardSidebar a:hover span::before{
+    border-bottom: 3px solid #d41d6d;
+}
