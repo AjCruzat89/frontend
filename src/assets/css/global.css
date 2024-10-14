@@ -1,0 +1,122 @@
+:root{
+    --var-primary: #22c1c3;
+    --var-secondary: #25cf9a;
+    --var-success: #2efb2e;
+    --var-warning: #f5b32b;
+    --var-danger: #f52b2b;
+}
+
+#logo{
+    filter: invert(42%) sepia(67%) saturate(1812%) hue-rotate(83deg) brightness(93%) contrast(89%);
+    width: 100px;
+    height: 100px;
+}
+
+body{
+    font-family: 'Roboto', sans-serif !important;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+#authContainer {
+    background: rgb(34, 193, 195);
+    background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(37, 207, 161, 1) 53%, rgba(46, 253, 45, 1) 100%);
+}
+
+#authContainer .card {
+    -webkit-box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.34);
+    -moz-box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.34);
+    box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.34);
+}
+
+@media (min-width: 768px) {
+    #authContainer .card {
+        width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    #authContainer .card {
+        width: 100%;
+    }
+}
+
+.navbar{
+    height: 70px;
+}
+
+.navbar i{
+    font-size: 30px;
+}
+
+.navbar i:hover{
+    cursor: pointer;
+}
+
+.sidebar{
+    margin-top: 70px;   
+    width: 280px;
+    height: 100%;
+    z-index: 999;
+}
+
+.right{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 70px;
+    width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .right.right-active{
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin-top: 70px;
+        width: calc(100% - 280px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar{
+        width: 100%;
+    }
+    
+}
+
+.sidebar div{
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar div:not(:first-child):not(:last-child):hover {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.sidebar a{
+    display: flex;
+    align-items: center; 
+    gap: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+}
+
+#actionMenu i{
+    cursor: pointer;
+}
+
+#actionMenu i{
+    border: 1px solid transparent;
+    border-radius: 50%;
+    padding: 8px 12px;
+    color: white;
+}
+
+#kiosk-card{
+    cursor: pointer;
+}
+
+#kiosk-card:hover{
+   filter: grayscale(0.69);
+}
