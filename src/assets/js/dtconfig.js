@@ -1,10 +1,19 @@
 import $ from 'jquery';
 
+let dataTableInstance = null;
+
 const dtconfig = () => {
-    $('#example').DataTable({
+    dataTableInstance = $('#example').DataTable({
         pageLength: 10,
         retrieve: true,
+        ordering: false
     });
-}
+};
 
-export default dtconfig
+export const redrawDataTable = () => {
+    if (dataTableInstance) {
+        dataTableInstance.draw();
+    }
+};
+
+export default dtconfig;

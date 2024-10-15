@@ -29,12 +29,13 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending) => {
     }
 
     const getPending = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-pending`, { headers: authHeaders })
+        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/get-pending`, { headers: authHeaders })
             .then(res => {
                 setPending(res.data.results)
             })
             .catch(err => {
                 console.log(err)
+                setPending([])
             })
     }
 
