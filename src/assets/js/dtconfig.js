@@ -10,7 +10,7 @@ const dtconfig = () => {
     });
 };
 
-export const redrawDataTable = () => {
+export const drawDT = () => {
     if (dataTableInstance) {
         dataTableInstance.draw();
     }

@@ -42,9 +42,6 @@ const windows = () => {
                     <button data-bs-toggle="modal" data-bs-target="#addModal" className='d-flex align-items-center gap-2 btn btn-primary'><i className="bi bi-plus-circle-fill"></i>ADD</button>
                     {datas.length > 0 ? (
                         <div className="card p-3 mt-3">
-                            <div className='py-3'>
-
-                            </div>
                             <div className="table-responsive">
                                 <table className='table table-bordered' id='example'>
                                     <thead>

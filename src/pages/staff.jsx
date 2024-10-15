@@ -5,7 +5,7 @@ import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 import 'datatables.net';
 import 'datatables.net-bs5';
 import $ from 'jquery';
-import dtconfig, { redrawDataTable } from '../assets/js/dtconfig'
+import dtconfig, { drawDT } from '../assets/js/dtconfig'
 import staffAxios from '../assets/js/staffAxios';
 
 const staff = () => {
@@ -19,10 +19,10 @@ const staff = () => {
     const { updateQueue, transferWindow, finishQueue } = staffAxios(setCurrentWindow, setWindowNames, setPending);
     useEffect(() => { 
         dtconfig(); 
-    }, []);
+    }, [pending]);
 
     useEffect(() => {
-        redrawDataTable(); 
+        drawDT(); 
     }, [pending]);
 
     const textToSpeech = () => {
@@ -90,7 +90,6 @@ const staff = () => {
                                     pending.length > 0 && user.window ? (
                                         <>
                                             <div className="card p-3">
-                                                <h1 className='text-center py-3'>{ user.window }</h1>
                                                 <div className="table-responsive">
                                                     <table id='example' className='table table-bordered'>
                                                         <thead>
