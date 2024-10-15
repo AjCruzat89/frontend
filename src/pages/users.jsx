@@ -58,7 +58,7 @@ const users = () => {
                                         <tbody>
                                             {datas.map((data, index) => (
                                                 <tr key={index}>
-                                                    <td>{data.id}</td>
+                                                    <td className='dt-type-numeric sorting_1'>{data.id}</td>
                                                     <td>{data.username}</td>
                                                     <td>{data.role}</td>
                                                     <td>{data.window}</td>
@@ -75,7 +75,7 @@ const users = () => {
                                 </div>
                             </div>
                         ) : (
-                            <div className="alert alert-danger mt-3 text-center">No Data</div>
+                            <div className="alert alert-danger mt-3 text-center">NO DATA</div>
                         )}
                     </nav>
                 </div>

@@ -36,6 +36,7 @@ const adminAxios = (setDatas) => {
         const modal = document.getElementById('addModal');
         const myModal = Modal.getOrCreateInstance(modal);
         myModal.hide();
+        document.getElementById('add-window').value = '';
       })
       .catch(err => {
         const errorMessage = Array.isArray(err.response.data.error)

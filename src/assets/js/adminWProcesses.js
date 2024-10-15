@@ -40,6 +40,9 @@ const adminWProcesses = (setDatas) => {
         const modal = document.getElementById('addModal');
         const myModal = Modal.getOrCreateInstance(modal);
         myModal.hide();
+        document.getElementById('add-process-type').value = '';
+        document.getElementById('add-coding').value = '';
+        document.getElementById('add-description').value = '';
       })
       .catch(err => {
         const errorMessage = Array.isArray(err.response.data.error)

@@ -37,10 +37,10 @@ const windowProcesses = () => {
                 <div className="right right-active" id='container-box'>
                     <div className="container py-3">
                         <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item" aria-current="page"><a href="/admin">Admin</a></li>
-                                <li class="breadcrumb-item" aria-current="page"><a href="/admin/windows">Windows</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{wname}</li>
+                            <ol className="breadcrumb">
+                                <li className="breadcrumb-item" aria-current="page"><a href="/admin">Admin</a></li>
+                                <li className="breadcrumb-item" aria-current="page"><a href="/admin/windows">Windows</a></li>
+                                <li className="breadcrumb-item active" aria-current="page">{wname}</li>
                             </ol>
                         </nav>
                         <button data-bs-toggle="modal" data-bs-target="#addModal" className='d-flex align-items-center gap-2 btn btn-primary'><i className="bi bi-plus-circle-fill"></i>ADD</button>
@@ -92,19 +92,19 @@ const windowProcesses = () => {
                                     <div className="modal-body d-flex justify-content-center flex-column gap-3">
                                         <div className='d-none'>
                                             <label>Window</label>
-                                            <input type="text" name="window" className='form-control' defaultValue={wname} placeholder='Enter window...' />
+                                            <input type="text" name="window" className='form-control' defaultValue={wname} placeholder='Enter window...'/>
                                         </div>
                                         <div>
                                             <label>Process Type</label>
-                                            <input type="text" name="process_type" className='form-control' placeholder='Enter process type...' />
+                                            <input type="text" name="process_type" className='form-control' placeholder='Enter process type...' id='add-process-type'/>
                                         </div>
                                         <div>
                                             <label>Coding</label>
-                                            <input type="text" name="coding" className='form-control' placeholder='Enter coding...' />
+                                            <input type="text" name="coding" className='form-control' placeholder='Enter coding...' id='add-coding'/>
                                         </div>
                                         <div>
                                             <label>Description</label>
-                                            <textarea className='form-control' name='description' rows={5} placeholder='Enter description...'></textarea>
+                                            <textarea className='form-control' name='description' rows={5} placeholder='Enter description...' id='add-description'></textarea>
                                         </div>
                                     </div>
                                     <div className="modal-footer justify-content-center">
