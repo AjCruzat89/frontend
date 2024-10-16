@@ -11,11 +11,11 @@ const monitor = () => {
     monitorAxios(setPending, setQueues);
 
     return (
-        <div className='container py-2'>
+        <div className='container py-3'>
             <div className="row row-cols-1 row-cols-md-2">
                 <div className="col">
                     <div className="card m-0">
-                        <div className="alert alert-secondary m-0">
+                        <div className="alert alert-success m-0">
                             Serving
                         </div>
                         {
@@ -33,7 +33,7 @@ const monitor = () => {
                 </div>
                 <div className="col">
                     <div className="card m-0">
-                        <div className="alert alert-secondary m-0">
+                        <div className="alert alert-success m-0">
                             Waiting
                         </div>
                         {
