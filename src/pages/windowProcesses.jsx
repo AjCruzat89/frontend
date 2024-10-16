@@ -63,7 +63,7 @@ const windowProcesses = () => {
                                                         <td className='dt-type-numeric sorting_1'>{data.id}</td>
                                                         <td>{data.process_type}</td>
                                                         <td>{data.coding}</td>
-                                                        <td>
+                                                        <td className='p-3'>
                                                             <div className='d-flex gap-2' id="actionMenu">
                                                                 <i onClick={editAttributes} style={{ backgroundColor: 'var(--var-primary)' }} data-bs-toggle="modal" data-bs-target="#editModal" className="bi bi-pencil-square" data-id={data.id} data-processtype={data.process_type} data-coding={data.coding} data-description={data.description}></i>
                                                                 <i onClick={deleteAttributes} className="bi bi-trash3-fill" style={{ backgroundColor: 'var(--var-danger)' }} data-bs-toggle="modal" data-bs-target="#deleteModal" data-id={data.id}></i>

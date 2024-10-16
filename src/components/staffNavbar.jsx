@@ -25,7 +25,7 @@ const staffNavbar = (props) => {
       </nav>
       <div className="sidebar d-none d-md-flex flex-column position-fixed px-2 py-3 border h-100 bg-white">
         <div className="d-flex justify-content-center">
-          <img src="/bcas.png" alt="logo" id='logo' />
+          <img onClick={() => window.location.reload()} src="/bcas.png" alt="logo" id='logo' />
         </div>
         <div className='w-100 p-2 rounded'>
           <LogoutButton />

@@ -62,7 +62,7 @@ const users = () => {
                                                     <td>{data.username}</td>
                                                     <td>{data.role}</td>
                                                     <td>{data.window}</td>
-                                                    <td>
+                                                    <td className='p-3'>
                                                         <div className='d-flex gap-2' id="actionMenu">
                                                             <i onClick={editAttributes} style={{ backgroundColor: 'var(--var-primary)' }} data-bs-toggle="modal" data-bs-target="#editModal" className="bi bi-pencil-square" data-id={data.id} data-username={data.username} data-role={data.role} data-window={data.window}></i>
                                                             <i onClick={deleteAttributes} className="bi bi-trash3-fill" style={{ backgroundColor: 'var(--var-danger)' }} data-bs-toggle="modal" data-bs-target="#deleteModal" data-id={data.id}></i>
