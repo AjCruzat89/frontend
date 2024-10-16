@@ -91,11 +91,11 @@ const users = () => {
                                 <div className="modal-body d-flex justify-content-center flex-column gap-3">
                                     <div>
                                         <label>Username</label>
-                                        <input type="text" name="username" className="form-control" placeholder='Enter username...' />
+                                        <input type="text" name="username" className="form-control" placeholder='Enter username...' id='add-username'/>
                                     </div>
                                     <div>
                                         <label>Password</label>
-                                        <input type={show ? 'text' : 'password'} name="password" className="form-control" placeholder='Enter password...' />
+                                        <input type={show ? 'text' : 'password'} name="password" className="form-control" placeholder='Enter password...' id='add-password'/>
                                     </div>
                                     <div>
                                         <div className="form-check">
@@ -106,7 +106,7 @@ const users = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <select name="role" className='form-select'>
+                                        <select name="role" className='form-select' id='add-role'>
                                             <option value="guest">guest</option>
                                             <option value="staff">staff</option>
                                         </select>
@@ -115,7 +115,7 @@ const users = () => {
                                         windows.length > 0 && (
                                             <div>
                                                 <label>Window</label>
-                                                <select className='form-select' name="window">
+                                                <select className='form-select' name="window" id='add-window'>
                                                     {
                                                         windows?.map((data, index) => (
                                                             <option key={index} value={data.window}>{data.window}</option>
