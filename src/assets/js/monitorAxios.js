@@ -52,7 +52,7 @@ const monitorAxios = (setPending, setQueues) => {
         });
 
         return () => {
-            socket.off('refreshDatas');
+            socket.off('refreshQueue');
             socket.disconnect();
         };
     }, []);

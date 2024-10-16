@@ -110,16 +110,18 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending) => {
             console.log('Connected to WebSocket server');
         });
 
-        socket.on('refreshQueue', () => {
-            getCurrentWindow();
-            getPending();
-        })
+        socket.on('refreshQueue', async () => {
+                getCurrentWindow()
+                getWindowNames()
+                getPending()
+        });
 
         socket.on('disconnect', () => {
             console.log('Disconnected from WebSocket server');
         });
 
         return () => {
+            socket.off('refreshQueue');
             socket.disconnect();
         };
     }, []);
