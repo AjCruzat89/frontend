@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import axios from 'axios'
 import { authHeaders } from './headers'
 import Swal from 'sweetalert2'
-import { Modal } from 'bootstrap/dist/js/bootstrap.bundle.min';
+import { io } from 'socket.io-client'
 
 const adminAxios = (setTransactions) => {
   
@@ -20,6 +20,31 @@ const adminAxios = (setTransactions) => {
     useEffect(() => {
       getTransactions()
     }, [])
+
+    useEffect(() => {
+      const socket = io(`http://${import.meta.env.VITE_IPV4}:3000`, {
+          reconnection: true,
+      });
+
+      socket.on('connect', () => {
+          console.log('Connected to WebSocket server');
+      });
+
+      socket.on('refreshQueue', async () => {
+          await Promise.all([
+            getTransactions()
+          ]);
+      });
+
+      socket.on('disconnect', () => {
+          console.log('Disconnected from WebSocket server');
+      });
+
+      return () => {
+          socket.off('refreshQueue');
+          socket.disconnect();
+      };
+  }, []);
 
 }
 

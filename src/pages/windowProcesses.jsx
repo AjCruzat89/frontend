@@ -92,7 +92,7 @@ const windowProcesses = () => {
                                     <div className="modal-body d-flex justify-content-center flex-column gap-3">
                                         <div className='d-none'>
                                             <label>Window</label>
-                                            <input type="text" name="window" className='form-control' defaultValue={wname} placeholder='Enter window...'/>
+                                            <input type="text" name="window" className='form-control' value={wname} placeholder='Enter window...'/>
                                         </div>
                                         <div>
                                             <label>Process Type</label>
