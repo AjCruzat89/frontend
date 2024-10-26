@@ -103,7 +103,7 @@ const Admin = () => {
           <div className="card p-3">
             {Object.keys(dailyAmounts).length > 0 ? (
               <>
-                <h3>Daily Transactions</h3>
+                <div className='alert alert-danger'>Daily Transactions</div>
                 <Bar className='mt-4' data={createChartData(dailyAmounts, 'Daily')} options={options} />
               </>
             ) : (
@@ -111,7 +111,7 @@ const Admin = () => {
             )}
             {Object.keys(weeklyAmounts).length > 0 ? (
               <>
-                <h3>Weekly Transactions</h3>
+                <div className='alert alert-primary mt-3'>Weekly Transactions</div>
                 <Bar className='mt-4' data={createChartData(weeklyAmounts, 'Weekly')} options={options} />
               </>
             ) : (
@@ -119,7 +119,7 @@ const Admin = () => {
             )}
             {Object.keys(monthlyAmounts).length > 0 ? (
               <>
-                <h3>Monthly Transactions</h3>
+                <div className='alert alert-info mt-3'>Monthly Transactions</div>
                 <Bar className='mt-4' data={createChartData(monthlyAmounts, 'Monthly')} options={options} />
               </>
             ) : (
@@ -127,7 +127,7 @@ const Admin = () => {
             )}
             {Object.keys(yearlyAmounts).length > 0 ? (
               <>
-                <h3>Yearly Transactions</h3>
+                <div className='alert alert-warning mt-3'>Yearly Transactions</div>
                 <Bar className='mt-4' data={createChartData(yearlyAmounts, 'Yearly')} options={options} />
               </>
             ) : (
