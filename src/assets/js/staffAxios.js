@@ -6,12 +6,22 @@ import { io } from 'socket.io-client'
 import { Modal } from 'bootstrap/dist/js/bootstrap.bundle.min';
 
 
-const staffAxios = (setCurrentWindow, setWindowNames, setPending) => {
+const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransactions) => {
 
     const getCurrentWindow = () => {
         axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/current-window`, { headers: authHeaders })
             .then(res => {
                 setCurrentWindow(res.data.result)
+                const id = res.data.result.id
+                axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/get-transactions-by-id/${id}`, {
+                    headers: authHeaders
+                })
+                    .then(res => {
+                        setTransactions(res.data.results)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             })
             .catch(err => {
                 console.log(err)
@@ -52,7 +62,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending) => {
                     toast: true,
                     position: 'bottom-left',
                     icon: 'success',
-                    title: 'Success',
+                    title: 'Success!',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -65,13 +75,13 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending) => {
     const transferWindow = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/transfer-window`, formData , { headers: authHeaders })
+        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/transfer-window`, formData, { headers: authHeaders })
             .then(res => {
                 Swal.fire({
                     toast: true,
                     position: 'bottom-left',
                     icon: 'success',
-                    title: 'Success',
+                    title: 'Success!',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -91,7 +101,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending) => {
                     toast: true,
                     position: 'bottom-left',
                     icon: 'success',
-                    title: 'Success',
+                    title: 'Success!',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -99,6 +109,70 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending) => {
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    const addTransaction = (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/add-transaction`, formData, { headers: authHeaders })
+            .then(res => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Added Successfully!',
+                    toast: true,
+                    position: 'bottom-left',
+                    showCloseButton: false,
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true,
+                });
+                const modal = document.getElementById('addModal');
+                const myModal = Modal.getOrCreateInstance(modal);
+                myModal.hide();
+                document.getElementById('addAmount').value = ''
+                document.getElementById('addDescription').value = ''
+            })
+            .catch(err => {
+                const errorMessage = Array.isArray(err.response.data.error)
+                    ? err.response.data.error[0]
+                    : err.response.data.error;
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    timer: 1000,
+                    text: errorMessage,
+                    showConfirmButton: false,
+                    showCancelButton: false,
+                    position: 'center',
+                })
+            });
+    }
+
+    const deleteTransaction = (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/delete-transaction`, formData, { headers: authHeaders })
+            .then(res => {
+                Swal.fire({
+                    toast: true,
+                    position: 'bottom-left',
+                    icon: 'success',
+                    title: 'Deleted Successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                const modal = document.getElementById('deleteModal');
+                const myModal = Modal.getOrCreateInstance(modal);
+                myModal.hide();
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const deleteAttributes = (e) => {
+        const btn = e.currentTarget;
+        document.getElementById('deleteId').value = btn.getAttribute('data-id');
     }
 
     useEffect(() => {
@@ -111,9 +185,9 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending) => {
         });
 
         socket.on('refreshQueue', async () => {
-                getCurrentWindow()
-                getWindowNames()
-                getPending()
+            getCurrentWindow()
+            getWindowNames()
+            getPending()
         });
 
         socket.on('disconnect', () => {
@@ -126,7 +200,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending) => {
         };
     }, []);
 
-    return { updateQueue, transferWindow, finishQueue }
+    return { updateQueue, transferWindow, finishQueue, addTransaction, deleteAttributes, deleteTransaction }
 
 }
 
