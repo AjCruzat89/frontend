@@ -185,9 +185,11 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
         });
 
         socket.on('refreshQueue', async () => {
-            getCurrentWindow()
-            getWindowNames()
-            getPending()
+            await Promise.all([
+                getCurrentWindow(), 
+                getWindowNames(), 
+                getPending()
+            ]);
         });
 
         socket.on('disconnect', () => {

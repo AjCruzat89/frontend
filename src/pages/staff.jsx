@@ -57,7 +57,7 @@ const staff = () => {
                                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div className="modal-body d-flex justify-content-center flex-column gap-3">
-                                                        <input className='form-control d-none' type="text" name="id" defaultValue={currentWindow.id} readOnly />
+                                                        <input className='form-control d-none' type="text" name="id" value={currentWindow.id} readOnly />
                                                         {
                                                             windowNames.length > 0 ? (
                                                                 <select name="window" className="form-select">
