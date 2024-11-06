@@ -5,7 +5,7 @@ import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 import 'datatables.net';
 import 'datatables.net-bs5';
 import $ from 'jquery';
-import dtconfig, { drawDT } from '../assets/js/dtconfig'
+import dtconfig from '../assets/js/dtconfig'
 import staffAxios from '../assets/js/staffAxios';
 
 const staff = () => {

@@ -4,13 +4,16 @@ import { authHeaders } from './headers'
 import Swal from 'sweetalert2'
 import { io } from 'socket.io-client'
 
-const adminAxios = (setTransactions) => {
+const adminAxios = (setTransactions, setDaily, setWeekly, setMonthly, setYearly) => {
   
     const getTransactions = () => {
       axios.get(`http://${import.meta.env.VITE_IPV4}:3000/admin/get-transactions`, { headers: authHeaders })
         .then(res => {
-          setTransactions(res.data.results)
-          console.table(res.data.results)
+          setTransactions(res.data.transactions)
+          setDaily(res.data.daily)
+          setWeekly(res.data.weekly)
+          setMonthly(res.data.monthly)
+          setYearly(res.data.yearly)
         })
         .catch(err => {
           console.log(err)

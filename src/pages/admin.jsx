@@ -1,99 +1,98 @@
 import React, { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip } from 'chart.js';
 import { AdminNavbar } from '../components';
 import adminAuth from '../assets/js/adminAuth';
 import adminAxios from '../assets/js/adminAxios';
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
+import dtconfig from '../assets/js/dtconfig'
+import BarChart from '../components/BarChart';
+import LineChart from '../components/LineChart';
 
 const Admin = () => {
   useEffect(() => { document.title = 'Admin'; }, []);
 
   const [user, setUser] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [daily, setDaily] = useState([]);
+  const [weekly, setWeekly] = useState([]);
+  const [monthly, setMonthly] = useState([]);
+  const [yearly, setYearly] = useState([]);
+  const [option, setOption] = useState('daily');
 
   adminAuth(setUser);
-  adminAxios(setTransactions);
+  adminAxios(setTransactions, setDaily, setWeekly, setMonthly, setYearly);
 
-  const getColorByTimeFrame = (timeFrame) => {
-    const colors = {
-      daily: 'rgba(255, 99, 132, 0.6)',
-      weekly: 'rgba(54, 162, 235, 0.6)',
-      monthly: 'rgba(75, 192, 192, 0.6)',
-      yearly: 'rgba(255, 206, 86, 0.6)',
-    };
-    return colors[timeFrame] || 'rgba(75, 192, 192, 0.6)';
+  const dailyData = {
+    labels: daily.map(data => new Date(data.date).toLocaleString('en-PH', { 
+      timeZone: 'Asia/Manila', 
+      weekday: 'short', 
+      year: 'numeric', 
+      month: 'short', 
+      day: '2-digit', 
+    })),
+    datasets: [
+      {
+        label: 'Daily',
+        data: daily.map(data => data.daily_total),
+        backgroundColor: '#4A90E2',
+        borderColor: '#4A90E2',
+        borderWidth: 1,
+        pointRadius: 4,
+      }
+    ]
   };
 
-  const calculateDailyAmounts = () => {
-    const amounts = {};
-    transactions.forEach(({ createdAt, amount }) => {
-      const date = new Date(createdAt).toDateString();
-      amounts[date] = (amounts[date] || 0) + parseFloat(amount);
-    });
-    return amounts;
+  const weeklyData = {
+    labels: weekly.map(data => {
+      const week = data.week === 0 ? 'Last Week' : data.week;  
+      const year = data.week === 0 ? data.year - 1 : data.year;  
+      return `${data.week > 0 ? 'Week': ''} ${String(week)}, ${year}`;
+    }),
+    datasets: [
+      {
+        label: 'Weekly',
+        data: weekly.map(data => data.weekly_total),
+        backgroundColor: '#5BBF78',
+        borderColor: '#5BBF78',
+        borderWidth: 1,
+        pointRadius: 4,
+      }
+    ]
   };
 
-  const calculateWeeklyAmounts = () => {
-    const amounts = {};
-    transactions.forEach(({ createdAt, amount }) => {
-      const date = new Date(createdAt);
-      const weekKey = `${date.getFullYear()}-W${date.getWeek()}`;
-      amounts[weekKey] = (amounts[weekKey] || 0) + parseFloat(amount);
-    });
-    return amounts;
-  };
+  const monthlyData = {
+    labels: monthly.map(data => new Date(`${data.year}-${data.month}-01`).toLocaleString('en-PH', { 
+      timeZone: 'Asia/Manila', 
+      year: 'numeric', 
+      month: 'short' 
+    })),
+    datasets: [
+      {
+        label: 'Monthly',
+        data: monthly.map(data => data.monthly_total),
+        backgroundColor: '#F5A623', 
+        borderColor: '#F5A623',
+        borderWidth: 1,
+        pointRadius: 4,
+      }
+    ]
+  }
 
-  const calculateMonthlyAmounts = () => {
-    const amounts = {};
-    transactions.forEach(({ createdAt, amount }) => {
-      const date = new Date(createdAt);
-      const monthKey = `${date.getFullYear()}-${date.getMonth() + 1}`;
-      amounts[monthKey] = (amounts[monthKey] || 0) + parseFloat(amount);
-    });
-    return amounts;
-  };
+  const yearlyData = {
+    labels: yearly.map(data => data.year),
+    datasets: [
+      {
+        label: 'Yearly',
+        data: yearly.map(data => data.yearly_total),
+        backgroundColor: '#9013FE',
+        borderColor: '#9013FE',
+        borderWidth: 1,
+        pointRadius: 4,
+      }
+    ]
+  }
 
-  const calculateYearlyAmounts = () => {
-    const amounts = {};
-    transactions.forEach(({ createdAt, amount }) => {
-      const yearKey = new Date(createdAt).getFullYear();
-      amounts[yearKey] = (amounts[yearKey] || 0) + parseFloat(amount);
-    });
-    return amounts;
-  };
-
-  Date.prototype.getWeek = function () {
-    const firstDateOfYear = new Date(this.getFullYear(), 0, 1);
-    return Math.ceil(((this - firstDateOfYear) / (24 * 60 * 60 * 1000) + firstDateOfYear.getDay() + 1) / 7);
-  };
-
-  const dailyAmounts = calculateDailyAmounts();
-  const weeklyAmounts = calculateWeeklyAmounts();
-  const monthlyAmounts = calculateMonthlyAmounts();
-  const yearlyAmounts = calculateYearlyAmounts();
-
-  const createChartData = (amounts, label) => ({
-    labels: Object.keys(amounts),
-    datasets: [{
-      label,
-      data: Object.values(amounts),
-      backgroundColor: getColorByTimeFrame(label.toLowerCase()),
-    }],
-  });
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: { position: 'top' },
-      tooltip: {
-        callbacks: {
-          label: ({ dataset, raw }) => `${dataset.label}: ₱${raw.toFixed(2)}`,
-        },
-      },
-    },
-  };
+  useEffect(() => {
+    dtconfig();
+  }, [transactions]);
 
   return (
     <>
@@ -101,38 +100,50 @@ const Admin = () => {
       <div className="right right-active" id='container-box'>
         <div className="container py-3">
           <div className="card p-3">
-            {Object.keys(dailyAmounts).length > 0 ? (
-              <>
-                <div className='alert alert-danger'>Daily Transactions</div>
-                <Bar className='mt-4' data={createChartData(dailyAmounts, 'Daily')} options={options} />
-              </>
-            ) : (
-              <div className="alert alert-danger">No daily transactions found</div>
-            )}
-            {Object.keys(weeklyAmounts).length > 0 ? (
-              <>
-                <div className='alert alert-primary mt-3'>Weekly Transactions</div>
-                <Bar className='mt-4' data={createChartData(weeklyAmounts, 'Weekly')} options={options} />
-              </>
-            ) : (
-              <div className="alert alert-danger">No weekly transactions found</div>
-            )}
-            {Object.keys(monthlyAmounts).length > 0 ? (
-              <>
-                <div className='alert alert-info mt-3'>Monthly Transactions</div>
-                <Bar className='mt-4' data={createChartData(monthlyAmounts, 'Monthly')} options={options} />
-              </>
-            ) : (
-              <div className="alert alert-danger">No monthly transactions found</div>
-            )}
-            {Object.keys(yearlyAmounts).length > 0 ? (
-              <>
-                <div className='alert alert-warning mt-3'>Yearly Transactions</div>
-                <Bar className='mt-4' data={createChartData(yearlyAmounts, 'Yearly')} options={options} />
-              </>
-            ) : (
-              <div className="alert alert-danger">No yearly transactions found</div>
-            )}
+            <div className='d-flex gap-3 flex-column'>
+              <select className='form-select' onChange={(e) => setOption(e.target.value)}>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+              <div className='card p-3 p-md-4'>
+                { option === 'daily' && <LineChart chartData={dailyData} /> }
+                { option === 'weekly' && <LineChart chartData={weeklyData} /> }
+                { option === 'monthly' && <LineChart chartData={monthlyData} /> }
+                { option === 'yearly' && <LineChart chartData={yearlyData} /> }
+              </div>
+            </div>
+            {
+              transactions.length > 0 && (
+                <div className='card p-3 mt-3'>
+                  <div className="table table-responsive">
+                    <table id='example' className="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope='col'>TRANSACTION_ID</th>
+                          <th scope='col'>AMOUNT</th>
+                          <th scope='col'>DESCRIPTION</th>
+                          <th scope='col'>CREATED_AT</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          transactions?.map((data, index) => (
+                            <tr key={index}>
+                              <td className='dt-type-numeric sorting_1'>{data.transaction_id}</td>
+                              <td className='dt-type-numeric'>{data.amount}</td>
+                              <td>{data.description}</td>
+                              <td>{new Date(data.createdAt).toLocaleString('en-PH', { timeZone: 'Asia/Manila', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
+                            </tr>
+                          ))
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>
