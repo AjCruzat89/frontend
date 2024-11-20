@@ -7,7 +7,7 @@ import { io } from 'socket.io-client'
 const adminAxios = (setTransactions, setDaily, setWeekly, setMonthly, setYearly) => {
   
     const getTransactions = () => {
-      axios.get(`http://${import.meta.env.VITE_IPV4}:3000/admin/get-transactions`, { headers: authHeaders })
+      axios.get(`http://${import.meta.env.VITE_IPV4}:3000/admin/get-transactions`, { headers: authHeaders, withCredentials: false })
         .then(res => {
           setTransactions(res.data.transactions)
           setDaily(res.data.daily)

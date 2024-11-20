@@ -6,7 +6,7 @@ const authAxios = () => {
     const registerSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/user/register`, formData, { headers: customHeaders })
+        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/user/register`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => { window.location.href = '/login'; })
             .catch(err => {
                 const errorMessage = Array.isArray(err.response.data.error)
@@ -27,7 +27,7 @@ const authAxios = () => {
     const loginSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/user/login`, formData, { headers: authHeaders })
+        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/user/login`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 localStorage.setItem('token', res.data.token);
                 window.location.href = `/${res.data.role}`;
@@ -50,7 +50,7 @@ const authAxios = () => {
 
     const redirect = () => {
         if (localStorage.getItem('token')) {
-            axios.post(`http://${import.meta.env.VITE_IPV4}:3000/user/redirect`, {}, { headers: authHeaders })
+            axios.post(`http://${import.meta.env.VITE_IPV4}:3000/user/redirect`, {}, { headers: authHeaders, withCredentials: false })
             .then(res => { window.location.href = `/${res.data.role}`; })
             .catch(err => { console.log(err); })
         }

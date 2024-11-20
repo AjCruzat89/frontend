@@ -1,6 +1,7 @@
 //<!--===============================================================================================-->
 import { useEffect } from 'react';
 import axios from 'axios';
+import { authHeaders } from './headers';
 //<!--===============================================================================================-->
 const adminAuth = (setUser) => {
 
@@ -9,12 +10,7 @@ const adminAuth = (setUser) => {
             if (!token) {
                 window.location.href = '/login';
             }
-            axios.post(`http://${import.meta.env.VITE_IPV4}:3000/user/admin-auth`, {}, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            })
+            axios.post(`http://${import.meta.env.VITE_IPV4}:3000/user/admin-auth`, {}, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setUser(res.data);
             })

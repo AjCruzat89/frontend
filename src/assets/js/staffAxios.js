@@ -9,7 +9,7 @@ import { Modal } from 'bootstrap/dist/js/bootstrap.bundle.min';
 const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransactions) => {
 
     const getCurrentWindow = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/current-window`, { headers: authHeaders })
+        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/current-window`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setCurrentWindow(res.data.result)
                 const id = res.data.result.id
@@ -29,7 +29,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     }
 
     const getWindowNames = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/get-window-names`, { headers: authHeaders })
+        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/get-window-names`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setWindowNames(res.data.windows)
             })
@@ -39,7 +39,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     }
 
     const getPending = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/get-pending`, { headers: authHeaders })
+        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/get-pending`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setPending(res.data.results)
             })
@@ -56,7 +56,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     }, [])
 
     const updateQueue = (id) => {
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/update-queue`, { id }, { headers: authHeaders })
+        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/update-queue`, { id }, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     toast: true,
@@ -75,7 +75,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     const transferWindow = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/transfer-window`, formData, { headers: authHeaders })
+        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/transfer-window`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     toast: true,
@@ -95,7 +95,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     }
 
     const finishQueue = (id) => {
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/finish-queue`, { id }, { headers: authHeaders })
+        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/finish-queue`, { id }, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     toast: true,
@@ -114,7 +114,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     const addTransaction = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/add-transaction`, formData, { headers: authHeaders })
+        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/add-transaction`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     icon: 'success',
@@ -151,7 +151,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     const deleteTransaction = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/delete-transaction`, formData, { headers: authHeaders })
+        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/delete-transaction`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     toast: true,

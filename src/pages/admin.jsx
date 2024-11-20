@@ -42,9 +42,7 @@ const Admin = () => {
 
   const weeklyData = {
     labels: weekly.map(data => {
-      const week = data.week === 0 ? 'Last Week' : data.week;  
-      const year = data.week === 0 ? data.year - 1 : data.year;  
-      return `${data.week > 0 ? 'Week': ''} ${String(week)}, ${year}`;
+      return `${data.year}, Week ${data.week}`;
     }),
     datasets: [
       {

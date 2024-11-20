@@ -8,10 +8,9 @@ import { io } from 'socket.io-client';
 const kioskAxios = (setDatas) => {
 
     const getProcesses = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-processes`, { headers: customHeaders })
+        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-processes`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setDatas(res.data.processes)
-                console.log(res.data.processes);
             })
             .catch(err => {
                 console.log(err)

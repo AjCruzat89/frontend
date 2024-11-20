@@ -11,10 +11,9 @@ const kioskProcessAxios = (setData, setLastNumber) => {
     const { coding } = useParams();
 
     const getProcess = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-process/${coding}`, { headers: customHeaders })
+        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-process/${coding}`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setData(res.data.process)
-                setCoding(res.data.process.coding)
             })
             .catch(err => {
                 console.log(err)
@@ -22,10 +21,9 @@ const kioskProcessAxios = (setData, setLastNumber) => {
     }
 
     const getLastNumber = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-last-number?queue_number=${coding}`, { headers: customHeaders })
+        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-last-number?queue_number=${coding}`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setLastNumber(res.data.lastNumber)
-                console.log(res.data.lastNumber);
             })
             .catch(err => {
                 console.log(err)

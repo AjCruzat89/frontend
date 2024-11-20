@@ -7,7 +7,7 @@ const logoutButton = () => {
   
   const logoutSubmit = async (e) => {
     e.preventDefault()
-    axios.post(`http://${import.meta.env.VITE_IPV4}:3000/user/logout`, {}, { headers: authHeaders })
+    axios.post(`http://${import.meta.env.VITE_IPV4}:3000/user/logout`, {}, { headers: authHeaders, withCredentials: false })
     .then(res => {
       localStorage.removeItem('token')
       window.location.href = '/login'

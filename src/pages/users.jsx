@@ -14,7 +14,7 @@ const users = () => {
     const [datas, setDatas] = useState([]);
     const [windows, setWindows] = useState([]);
     adminAuth(setUser);
-    const { createUser, editUser, deleteUser } = adminUsers(setDatas, setWindows);
+    const { createUser, editUser, deleteUser, updateUserPassword } = adminUsers(setDatas, setWindows);
     const [show, setShow] = useState(false);
     useEffect(() => { dtconfig(); }, [datas]);
 
@@ -29,6 +29,11 @@ const users = () => {
     const deleteAttributes = (e) => {
         const btn = e.currentTarget;
         document.getElementById('delete-id').value = btn.getAttribute('data-id');
+    }
+
+    const updateAttributes = (e) => {
+        const btn = e.currentTarget;
+        document.getElementById('update-id').value = btn.getAttribute('data-id');
     }
 
     return (
@@ -65,6 +70,7 @@ const users = () => {
                                                     <td className='p-3'>
                                                         <div className='d-flex gap-2' id="actionMenu">
                                                             <i onClick={editAttributes} style={{ backgroundColor: 'var(--var-primary)' }} data-bs-toggle="modal" data-bs-target="#editModal" className="bi bi-pencil-square" data-id={data.id} data-username={data.username} data-role={data.role} data-window={data.window}></i>
+                                                            <i onClick={updateAttributes} className="bi bi-key-fill" style={{ backgroundColor: 'var(--var-success)' }} data-bs-toggle="modal" data-bs-target="#updateModal" data-id={data.id}></i>
                                                             <i onClick={deleteAttributes} className="bi bi-trash3-fill" style={{ backgroundColor: 'var(--var-danger)' }} data-bs-toggle="modal" data-bs-target="#deleteModal" data-id={data.id}></i>
                                                         </div>
                                                     </td>
@@ -91,11 +97,11 @@ const users = () => {
                                 <div className="modal-body d-flex justify-content-center flex-column gap-3">
                                     <div>
                                         <label>Username</label>
-                                        <input type="text" name="username" className="form-control" placeholder='Enter username...' id='add-username'/>
+                                        <input type="text" name="username" className="form-control" placeholder='Enter username...' id='add-username' />
                                     </div>
                                     <div>
                                         <label>Password</label>
-                                        <input type={show ? 'text' : 'password'} name="password" className="form-control" placeholder='Enter password...' id='add-password'/>
+                                        <input type={show ? 'text' : 'password'} name="password" className="form-control" placeholder='Enter password...' id='add-password' />
                                     </div>
                                     <div>
                                         <div className="form-check">
@@ -175,6 +181,39 @@ const users = () => {
                                 <div className="modal-footer justify-content-center">
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" className="btn btn-primary">Save Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form onSubmit={updateUserPassword}>
+                    <div className="modal fade" id="updateModal" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="editBackdropLabel" aria-hidden="true">
+                        <div className="modal-dialog modal-dialog-centered">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h1 className="modal-title fs-5" id="staticBackdropLabel">Update User Password</h1>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div className="modal-body d-flex justify-content-center flex-column gap-3">
+                                    <div className='d-none'>
+                                        <label>ID</label>
+                                        <input type="text" name="id" className="form-control" id="update-id" />
+                                    </div>
+                                    <div>
+                                        <label>Password</label>
+                                        <input type={show ? 'text' : 'password'} onChange={(e) => setPassword(e.target.value)} name="password" className="form-control" id='update-password' placeholder='Enter password...' />
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" onClick={() => setShow(!show)} id="flexCheckDefault" />
+                                        <label className="form-check-label">
+                                            Show Password
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="modal-footer justify-content-center">
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" className="btn btn-primary">Update</button>
                                 </div>
                             </div>
                         </div>
