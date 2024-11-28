@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import axios from 'axios'
 import { authHeaders } from './headers'
 import Swal from 'sweetalert2'
@@ -7,6 +7,8 @@ import { Modal } from 'bootstrap/dist/js/bootstrap.bundle.min';
 
 
 const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransactions) => {
+
+    const socketRef = useRef(null);
 
     const getCurrentWindow = () => {
         axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/current-window`, { headers: authHeaders, withCredentials: false })
@@ -176,15 +178,13 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     }
 
     useEffect(() => {
-        const socket = io(`http://${import.meta.env.VITE_IPV4}:3000`, {
-            reconnection: true,
-        });
+        socketRef.current = io(`http://${import.meta.env.VITE_IPV4}:3000`, { reconnection: true, });
 
-        socket.on('connect', () => {
+        socketRef.current.on('connect', () => {
             console.log('Connected to WebSocket server');
         });
 
-        socket.on('refreshQueue', async () => {
+        socketRef.current.on('refreshQueue', async () => {
             await Promise.all([
                 getCurrentWindow(), 
                 getWindowNames(), 
@@ -192,17 +192,24 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
             ]);
         });
 
-        socket.on('disconnect', () => {
+        socketRef.current.on('disconnect', () => {
             console.log('Disconnected from WebSocket server');
         });
 
         return () => {
-            socket.off('refreshQueue');
-            socket.disconnect();
+            socketRef.current.off('refreshQueue');
+            socketRef.current.disconnect();    
         };
     }, []);
 
-    return { updateQueue, transferWindow, finishQueue, addTransaction, deleteAttributes, deleteTransaction }
+    const sendMessage = (queue_number, window) => {
+        const msg = `calling queue number ${queue_number}, come to ${window}.`
+        socketRef.current.emit('call', msg, (response) => {
+            console.log(response);
+        });
+    }
+
+    return { updateQueue, transferWindow, finishQueue, addTransaction, deleteAttributes, deleteTransaction, sendMessage}
 
 }
 

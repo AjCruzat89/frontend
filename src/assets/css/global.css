@@ -124,3 +124,11 @@ body{
 #kiosk-card:hover{
    filter: grayscale(0.69);
 }
+
+li{
+    list-style-type: decimal;
+}
+
+li::marker{
+    font-weight: bolder;
+}

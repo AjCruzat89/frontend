@@ -5,7 +5,6 @@ import Swal from 'sweetalert2'
 import { Modal } from 'bootstrap/dist/js/bootstrap.bundle.min';
 import { io } from 'socket.io-client';
 
-
 const monitorAxios = (setPending, setQueues) => {
 
     const getPending = () => {
@@ -33,6 +32,11 @@ const monitorAxios = (setPending, setQueues) => {
         getQueues();
     },[]);
 
+    function speakText(words){
+        const uttr = new SpeechSynthesisUtterance(words);
+        window.speechSynthesis.speak(uttr);
+    }
+
     useEffect(() => {
         const socket = io(`http://${import.meta.env.VITE_IPV4}:3000`, {
             reconnection: true,
@@ -40,6 +44,10 @@ const monitorAxios = (setPending, setQueues) => {
 
         socket.on('connect', () => {
             console.log('Connected to WebSocket server');
+        });
+
+        socket.on('call', (msg) => {
+            speakText(msg);
         });
 
         socket.on('refreshQueue', () => {
@@ -52,6 +60,7 @@ const monitorAxios = (setPending, setQueues) => {
         });
 
         return () => {
+            socket.off('call');
             socket.off('refreshQueue');
             socket.disconnect();
         };

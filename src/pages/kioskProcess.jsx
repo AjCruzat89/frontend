@@ -28,7 +28,9 @@ const kioskProcess = () => {
                 printWindow.document.write('</head><body>');
                 printWindow.document.write(`<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                                             <h1 style="font-size: 100px">${data.coding}${lastQueueNumber}</h1>
-                                            <h1>process type: ${data.process_type}</h1>
+                                            <h1>Process Type: ${data.process_type}</h1>
+                                            <h1>Transaction ID: ${res.data.result.id}</h1>
+                                            <h1 style="font-weight: lighter">${new Date(res.data.result.createdAt).toLocaleString('en-PH', { timeZone: 'Asia/Manila',weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'})}</h1>
                                     </div>`);
                 printWindow.document.write('</body></html>');
                 printWindow.document.close();
