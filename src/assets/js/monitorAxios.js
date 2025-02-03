@@ -47,6 +47,7 @@ const monitorAxios = (setPending, setQueues) => {
         });
 
         socket.on('call', (msg) => {
+            console.log(msg);
             speakText(msg);
         });
 

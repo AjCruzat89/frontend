@@ -205,7 +205,26 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     const sendMessage = (queue_number, window) => {
         const msg = `calling queue number ${queue_number}, come to ${window}.`
         socketRef.current.emit('call', msg, (response) => {
-            console.log(response);
+            if(response) {
+                Swal.fire({
+                    toast: true,
+                    position: 'bottom-left',
+                    icon: 'success',
+                    title: 'Calling!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+            else{
+                Swal.fire({
+                    toast: true,
+                    position: 'bottom-left',
+                    icon: 'error',
+                    title: 'Error!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
         });
     }
 
