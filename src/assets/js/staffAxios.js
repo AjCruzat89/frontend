@@ -44,6 +44,12 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
         axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/get-pending`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setPending(res.data.results)
+                if (res.data.results.length > 0 && Notification.permission === "granted") {
+                    new Notification("Pending Requests", {
+                        body: `You have ${res.data.results.length} people in the waiting line.`,
+                        icon: "/bcas.png",
+                    });
+                }
             })
             .catch(err => {
                 console.log(err)

@@ -22,6 +22,14 @@
             dtconfig();
         }, [pending, transactions]);
 
+        useEffect(() => {
+            if (Notification.permission === "default") {
+                Notification.requestPermission().then(permission => {
+                    console.log("Notification permission:", permission);
+                });
+            }
+        }, []);
+
         // useEffect(() => {
         //     drawDT();
         // }, [pending]);
