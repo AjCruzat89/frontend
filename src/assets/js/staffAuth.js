@@ -10,7 +10,7 @@ const staffAuth = (setUser) => {
             if(!token){
                 window.location.href = '/login';
             }
-            axios.post(`http://${import.meta.env.VITE_IPV4}:3000/user/staff-auth`, {}, { headers: authHeaders, withCredentials: false })
+            axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/user/staff-auth`, {}, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setUser(res.data);
             })

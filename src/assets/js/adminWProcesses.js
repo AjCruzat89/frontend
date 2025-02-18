@@ -10,7 +10,7 @@ const adminWProcesses = (setDatas) => {
   const { wname } = useParams();
   
   const getProcessTypes = () => {
-    axios.get(`http://${import.meta.env.VITE_IPV4}:3000/admin/get-process-types/${wname}`, { headers: authHeaders, withCredentials: false })
+    axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/get-process-types/${wname}`, { headers: authHeaders, withCredentials: false })
     .then(res => {
       setDatas(res.data.processTypes)
     })
@@ -24,7 +24,7 @@ const adminWProcesses = (setDatas) => {
   const createProcessType = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    axios.post(`http://${import.meta.env.VITE_IPV4}:3000/admin/create-process-type`, formData, { headers: authHeaders, withCredentials: false })
+    axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/create-process-type`, formData, { headers: authHeaders, withCredentials: false })
       .then(res => {
         Swal.fire({
           icon: 'success',
@@ -63,7 +63,7 @@ const adminWProcesses = (setDatas) => {
   const editProcessType = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    axios.post(`http://${import.meta.env.VITE_IPV4}:3000/admin/edit-process-type`, formData, { headers: authHeaders, withCredentials: false })
+    axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/edit-process-type`, formData, { headers: authHeaders, withCredentials: false })
       .then(res => {
         Swal.fire({
           icon: 'success',
@@ -99,7 +99,7 @@ const adminWProcesses = (setDatas) => {
   const deleteProcessType = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    axios.post(`http://${import.meta.env.VITE_IPV4}:3000/admin/delete-process-type`, formData, { headers: authHeaders, withCredentials: false })
+    axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/delete-process-type`, formData, { headers: authHeaders, withCredentials: false })
       .then(res => {
         Swal.fire({
           icon: 'success',

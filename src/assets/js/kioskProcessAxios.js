@@ -11,7 +11,7 @@ const kioskProcessAxios = (setData, setLastNumber) => {
     const { coding } = useParams();
 
     const getProcess = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-process/${coding}`, { headers: authHeaders, withCredentials: false })
+        axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/queue/get-process/${coding}`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setData(res.data.process)
             })
@@ -21,7 +21,7 @@ const kioskProcessAxios = (setData, setLastNumber) => {
     }
 
     const getLastNumber = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-last-number?queue_number=${coding}`, { headers: authHeaders, withCredentials: false })
+        axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/queue/get-last-number?queue_number=${coding}`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setLastNumber(res.data.lastNumber)
             })
@@ -36,7 +36,7 @@ const kioskProcessAxios = (setData, setLastNumber) => {
      }, [])
 
     useEffect(() => {
-        const socket = io(`http://${import.meta.env.VITE_IPV4}:3000`, {
+        const socket = io(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000`, {
             reconnection: true,
         });
 

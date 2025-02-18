@@ -11,7 +11,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     const socketRef = useRef(null);
 
     const getCurrentWindow = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/current-window`, { headers: authHeaders, withCredentials: false })
+        axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/staff/current-window`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setCurrentWindow(res.data.result)
                 const id = res.data.result.id
@@ -31,7 +31,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     }
 
     const getWindowNames = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/get-window-names`, { headers: authHeaders, withCredentials: false })
+        axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/staff/get-window-names`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setWindowNames(res.data.windows)
             })
@@ -41,12 +41,12 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     }
 
     const getPending = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/get-pending`, { headers: authHeaders, withCredentials: false })
+        axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/staff/get-pending`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setPending(res.data.results)
                 if (res.data.results.length > 0 && Notification.permission === "granted") {
                     new Notification("Pending Requests", {
-                        body: `You have ${res.data.results.length} people in the waiting line.`,
+                        body: `There's ${res.data.results.length} in the waiting line.`,
                         icon: "/bcas.png",
                     });
                 }
@@ -64,7 +64,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     }, [])
 
     const updateQueue = (id) => {
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/update-queue`, { id }, { headers: authHeaders, withCredentials: false })
+        axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/staff/update-queue`, { id }, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     toast: true,
@@ -83,7 +83,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     const transferWindow = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/transfer-window`, formData, { headers: authHeaders, withCredentials: false })
+        axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/staff/transfer-window`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     toast: true,
@@ -103,7 +103,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     }
 
     const finishQueue = (id) => {
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/finish-queue`, { id }, { headers: authHeaders, withCredentials: false })
+        axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/staff/finish-queue`, { id }, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     toast: true,
@@ -122,7 +122,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     const addTransaction = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/add-transaction`, formData, { headers: authHeaders, withCredentials: false })
+        axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/staff/add-transaction`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     icon: 'success',
@@ -160,7 +160,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     const editTransaction = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/edit-transaction`, formData, { headers: authHeaders, withCredentials: false })
+        axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/staff/edit-transaction`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     toast: true,
@@ -183,7 +183,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     const deleteTransaction = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/delete-transaction`, formData, { headers: authHeaders, withCredentials: false })
+        axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/staff/delete-transaction`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     toast: true,
@@ -216,7 +216,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
     }
 
     useEffect(() => {
-        socketRef.current = io(`http://${import.meta.env.VITE_IPV4}:3000`, { reconnection: true, });
+        socketRef.current = io(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000`, { reconnection: true, });
 
         socketRef.current.on('connect', () => {
             console.log('Connected to WebSocket server');

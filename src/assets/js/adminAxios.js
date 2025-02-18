@@ -7,7 +7,7 @@ import { io } from 'socket.io-client'
 const adminAxios = (setTransactions, setDaily, setWeekly, setMonthly, setYearly) => {
   
     const getTransactions = () => {
-      axios.get(`http://${import.meta.env.VITE_IPV4}:3000/admin/get-transactions`, { headers: authHeaders, withCredentials: false })
+      axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/get-transactions`, { headers: authHeaders, withCredentials: false })
         .then(res => {
           setTransactions(res.data.transactions)
           setDaily(res.data.daily)
@@ -25,7 +25,7 @@ const adminAxios = (setTransactions, setDaily, setWeekly, setMonthly, setYearly)
     }, [])
 
     useEffect(() => {
-      const socket = io(`http://${import.meta.env.VITE_IPV4}:3000`, {
+      const socket = io(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000`, {
           reconnection: true,
       });
 

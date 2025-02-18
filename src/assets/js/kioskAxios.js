@@ -8,7 +8,7 @@ import { io } from 'socket.io-client';
 const kioskAxios = (setDatas) => {
 
     const getProcesses = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-processes`, { headers: authHeaders, withCredentials: false })
+        axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/queue/get-processes`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setDatas(res.data.processes)
             })
@@ -20,7 +20,7 @@ const kioskAxios = (setDatas) => {
     useEffect(() => {  getProcesses(); }, [])
 
     useEffect(() => {
-        const socket = io(`http://${import.meta.env.VITE_IPV4}:3000`, {
+        const socket = io(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000`, {
             reconnection: true,
         });
 

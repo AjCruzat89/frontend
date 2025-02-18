@@ -7,7 +7,7 @@ import { Modal } from 'bootstrap/dist/js/bootstrap.bundle.min';
 const adminUsers = (setDatas, setWindows) => {
 
     const getUsers = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/admin/get-users`, { headers: authHeaders, withCredentials: false })
+        axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/get-users`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setDatas(res.data.users)
             })
@@ -17,7 +17,7 @@ const adminUsers = (setDatas, setWindows) => {
     }
 
     const getWindowNames = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/admin/get-window-names`, { headers: authHeaders, withCredentials: false })
+        axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/get-window-names`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setWindows(res.data.windows)
             })
@@ -34,7 +34,7 @@ const adminUsers = (setDatas, setWindows) => {
     const createUser = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/admin/create-user`, formData, { headers: authHeaders, withCredentials: false })
+        axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/create-user`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     icon: 'success',
@@ -72,7 +72,7 @@ const adminUsers = (setDatas, setWindows) => {
     const editUser = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/admin/edit-user`, formData, { headers: authHeaders, withCredentials: false })
+        axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/edit-user`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     icon: 'success',
@@ -108,7 +108,7 @@ const adminUsers = (setDatas, setWindows) => {
     const updateUserPassword = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/admin/update-user-password`, formData, { headers: authHeaders, withCredentials: false })
+        axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/update-user-password`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     icon: 'success',
@@ -146,7 +146,7 @@ const adminUsers = (setDatas, setWindows) => {
     const deleteUser = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/admin/delete-user`, formData, { headers: authHeaders, withCredentials: false })
+        axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/delete-user`, formData, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 Swal.fire({
                     icon: 'success',

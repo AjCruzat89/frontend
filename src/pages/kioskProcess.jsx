@@ -21,7 +21,7 @@ const kioskProcess = () => {
             process: data.process_type,
         }
 
-        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/queue/create-queue-number`, formData, { headers: customHeaders, withCredentials: false })
+        axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/queue/create-queue-number`, formData, { headers: customHeaders, withCredentials: false })
             .then(res => {
                 const printWindow = window.open('', '', 'height=600,width=800');
                 printWindow.document.write('<html><head><title>Print</title>');

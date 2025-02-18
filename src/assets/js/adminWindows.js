@@ -6,7 +6,7 @@ import { Modal } from 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const adminAxios = (setDatas) => {
   const getWindows = () => {
-    axios.get(`http://${import.meta.env.VITE_IPV4}:3000/admin/get-windows`, { headers: authHeaders, withCredentials: false })
+    axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/get-windows`, { headers: authHeaders, withCredentials: false })
       .then(res => {
         setDatas(res.data.windows)
       })
@@ -20,7 +20,7 @@ const adminAxios = (setDatas) => {
   const createWindow = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    axios.post(`http://${import.meta.env.VITE_IPV4}:3000/admin/create-window`, formData, { headers: authHeaders, withCredentials: false })
+    axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/create-window`, formData, { headers: authHeaders, withCredentials: false })
       .then(res => {
         Swal.fire({
           icon: 'success',
@@ -57,7 +57,7 @@ const adminAxios = (setDatas) => {
   const editWindow = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    axios.post(`http://${import.meta.env.VITE_IPV4}:3000/admin/edit-window`, formData, { headers: authHeaders, withCredentials: false })
+    axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/edit-window`, formData, { headers: authHeaders, withCredentials: false })
       .then(res => {
         Swal.fire({
           icon: 'success',
@@ -93,7 +93,7 @@ const adminAxios = (setDatas) => {
   const deleteWindow = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    axios.post(`http://${import.meta.env.VITE_IPV4}:3000/admin/delete-window`, formData, { headers: authHeaders, withCredentials: false })
+    axios.post(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/admin/delete-window`, formData, { headers: authHeaders, withCredentials: false })
       .then(res => {
         Swal.fire({
           icon: 'success',

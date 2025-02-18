@@ -8,7 +8,7 @@ import { io } from 'socket.io-client';
 const monitorAxios = (setPending, setQueues) => {
 
     const getPending = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-pending`, { headers: authHeaders, withCredentials: false })
+        axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/queue/get-pending`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setPending(res.data.results);
             })
@@ -18,7 +18,7 @@ const monitorAxios = (setPending, setQueues) => {
     }
 
     const getQueues = () => {
-        axios.get(`http://${import.meta.env.VITE_IPV4}:3000/queue/get-queues`, { headers: authHeaders, withCredentials: false })
+        axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/queue/get-queues`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setQueues(res.data.results);
             })
@@ -38,7 +38,7 @@ const monitorAxios = (setPending, setQueues) => {
     }
 
     useEffect(() => {
-        const socket = io(`http://${import.meta.env.VITE_IPV4}:3000`, {
+        const socket = io(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000`, {
             reconnection: true,
         });
 
