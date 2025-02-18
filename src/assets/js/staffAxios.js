@@ -139,6 +139,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
                 myModal.hide();
                 document.getElementById('addAmount').value = ''
                 document.getElementById('addDescription').value = ''
+                getCurrentWindow();
             })
             .catch(err => {
                 const errorMessage = Array.isArray(err.response.data.error)
@@ -154,6 +155,29 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
                     position: 'center',
                 })
             });
+    }
+
+    const editTransaction = (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        axios.post(`http://${import.meta.env.VITE_IPV4}:3000/staff/edit-transaction`, formData, { headers: authHeaders, withCredentials: false })
+            .then(res => {
+                Swal.fire({
+                    toast: true,
+                    position: 'bottom-left',
+                    icon: 'success',
+                    title: 'Updated Successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                const modal = document.getElementById('editModal');
+                const myModal = Modal.getOrCreateInstance(modal);
+                myModal.hide();
+                getCurrentWindow();
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     const deleteTransaction = (e) => {
@@ -172,10 +196,18 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
                 const modal = document.getElementById('deleteModal');
                 const myModal = Modal.getOrCreateInstance(modal);
                 myModal.hide();
+                getCurrentWindow();
             })
             .catch(err => {
                 console.log(err)
             })
+    }
+    
+    const editAttributes = (e) => {
+        const btn = e.currentTarget;
+        document.getElementById('edit-id').value = btn.getAttribute('data-id');
+        document.getElementById('edit-amount').value = btn.getAttribute('data-amount');
+        document.getElementById('edit-description').value = btn.getAttribute('data-description');
     }
 
     const deleteAttributes = (e) => {
@@ -234,7 +266,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
         });
     }
 
-    return { updateQueue, transferWindow, finishQueue, addTransaction, deleteAttributes, deleteTransaction, sendMessage}
+    return { updateQueue, transferWindow, finishQueue, addTransaction, editAttributes, deleteAttributes, editTransaction, deleteTransaction, sendMessage}
 
 }
 

@@ -17,7 +17,7 @@
         const [windowNames, setWindowNames] = useState([]);
         const [pending, setPending] = useState([]);
         const [transactions, setTransactions] = useState([]);
-        const { updateQueue, transferWindow, finishQueue, addTransaction, deleteAttributes, deleteTransaction, sendMessage } = staffAxios(setCurrentWindow, setWindowNames, setPending, setTransactions);
+        const { updateQueue, transferWindow, finishQueue, addTransaction, editAttributes, deleteAttributes, editTransaction, deleteTransaction, sendMessage } = staffAxios(setCurrentWindow, setWindowNames, setPending, setTransactions);
         useEffect(() => {
             dtconfig();
         }, [pending, transactions]);
@@ -29,6 +29,7 @@
                 });
             }
         }, []);
+        
 
         // useEffect(() => {
         //     drawDT();
@@ -146,6 +147,7 @@
                                                                     <td>{item.description}</td>
                                                                     <td>
                                                                         <div className='d-flex gap-2' id="actionMenu">
+                                                                            <i onClick={editAttributes} style={{ backgroundColor: 'var(--var-primary)' }} data-bs-toggle="modal" data-bs-target="#editModal" className="bi bi-pencil-square" data-id={item.id} data-amount={item.amount} data-description={item.description}></i>
                                                                             <i onClick={deleteAttributes} className="bi bi-trash3-fill" style={{ backgroundColor: 'var(--var-danger)' }} data-bs-toggle="modal" data-bs-target="#deleteModal" data-id={item.id}></i>
                                                                         </div>
                                                                     </td>
@@ -170,6 +172,30 @@
                                                             <input className='form-control' type="number" step="0.01" min="0" name="amount" placeholder='Enter amount...' id='addAmount' />
                                                             <label>Description</label>
                                                             <textarea className='form-control' name="description" placeholder='Enter description...' id='addDescription'></textarea>
+                                                        </div>
+                                                        <div className="modal-footer justify-content-center">
+                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" className="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <form onSubmit={editTransaction}>
+                                            <div className="modal fade" id="editModal" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="editBackdropLabel" aria-hidden="true">
+                                                <div className="modal-dialog modal-dialog-centered">
+                                                    <div className="modal-content">
+                                                        <div className="modal-header">
+                                                            <h1 className="modal-title fs-5" id="staticBackdropLabel">Transfer Window</h1>
+                                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div className="modal-body d-flex justify-content-center flex-column gap-3">
+                                                            <input className='form-control d-none' type="text" name="id" id='edit-id' readOnly />
+                                                            <label>Amount</label>
+                                                            <input className='form-control' type="number" step="0.01" min="0" name="amount" placeholder='Enter amount...' id='edit-amount' />
+                                                            <label>Description</label>
+                                                            <textarea className='form-control' name="description" placeholder='Enter description...' id='edit-description'></textarea>
                                                         </div>
                                                         <div className="modal-footer justify-content-center">
                                                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
