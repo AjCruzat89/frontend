@@ -44,12 +44,12 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
         axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/staff/get-pending`, { headers: authHeaders, withCredentials: false })
             .then(res => {
                 setPending(res.data.results)
-                if (res.data.results.length > 0 && Notification.permission === "granted") {
-                    new Notification("Pending Requests", {
-                        body: `There's ${res.data.results.length} in the waiting line.`,
-                        icon: "/bcas.png",
-                    });
-                }
+                    if (document.hidden && res.data.results.length > 0 && Notification.permission === "granted") {
+                        new Notification("Pending Requests", {
+                            body: `There's ${res.data.results.length} in the waiting line.`,
+                            icon: "/bcas.png",
+                        });
+                    }
             })
             .catch(err => {
                 console.log(err)
