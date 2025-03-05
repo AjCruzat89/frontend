@@ -15,7 +15,7 @@ const staffAxios = (setCurrentWindow, setWindowNames, setPending, setTransaction
             .then(res => {
                 setCurrentWindow(res.data.result)
                 const id = res.data.result.id
-                axios.get(`http://${import.meta.env.VITE_IPV4}:3000/staff/get-transactions-by-id/${id}`, {
+                axios.get(`${import.meta.env.VITE_PROTOCOL}://${import.meta.env.VITE_IPV4}:3000/staff/get-transactions-by-id/${id}`, {
                     headers: authHeaders
                 })
                     .then(res => {
